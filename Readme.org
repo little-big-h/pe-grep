@@ -1,0 +1,15 @@
+* Dependencies
+	- cmake
+	- Google benchmark (fetched during build)
+* Building
+#+begin_src bash
+mkdir Release
+cd Release
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cd ..
+cmake --build Release
+#+end_src
+* Running
+#+begin_src bash
+./Release/pegrep
+#+end_src

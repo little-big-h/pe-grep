@@ -6,7 +6,7 @@
 
 class Operator {
 public:
-  virtual std::optional<std::string> getLine() = 0;
+  virtual std::string const* getLine() = 0;
   virtual ~Operator(){};
 };
 
@@ -17,7 +17,7 @@ class Input : public Operator {
   size_t i{};
 
 public:
-  std::optional<std::string> getLine();
+  std::string const* getLine();
   void push_back(std::string line);
   size_t size() const { return lines.size(); }
   void reset() { i = 0; }
@@ -33,7 +33,7 @@ class Select : public Operator {
 public:
   Select(std::unique_ptr<Operator>&& c, std::function<bool(std::string)> predicate)
       : child(move(c)), predicate(predicate){};
-  std::optional<std::string> getLine();
+  std::string const* getLine();
   size_t size();
 
   std::unique_ptr<Operator> getChildWithOwnership() {
@@ -50,7 +50,7 @@ class SelectWithPrefixInt : public Operator {
 public:
   SelectWithPrefixInt(std::unique_ptr<Operator>&& c, int predicate)
       : child(move(c)), predicate(predicate){};
-  std::optional<std::string> getLine();
+  std::string const* getLine();
   ;
   size_t size();
 
@@ -68,7 +68,7 @@ class BulkSelectWithPrefixInt : public Operator {
 public:
   BulkSelectWithPrefixInt(std::unique_ptr<Input>&& c, int predicate)
       : child(move(c)), predicate(predicate){};
-  std::optional<std::string> getLine();
+  std::string const* getLine();
   ;
   size_t size();
 

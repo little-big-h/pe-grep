@@ -1,8 +1,8 @@
 #include "Implementation.hpp"
 
-std::optional<std::string> Select::getLine() {
-	for(auto next = child->getLine(); next.has_value(); next = child->getLine()) {
-		if(!next.has_value() || predicate(next.value()))
+std::string const* Select::getLine() {
+	for(auto next = child->getLine(); next; next = child->getLine()) {
+		if(!next || predicate(*next))
 			return next;
 	};
 	return {};
@@ -16,18 +16,18 @@ size_t Select::size() {
 	return result;
 }
 
-std::optional<std::string> Input::getLine() {
+std::string const* Input::getLine() {
 	if(i >= lines.size())
 		return {};
-	return lines[i++];
+	return &lines[i++];
 };
 
 void Input::push_back(std::string line) { lines.push_back(line); }
 
-std::optional<std::string> SelectWithPrefixInt::getLine() {
+std::string const* SelectWithPrefixInt::getLine() {
 	int const line = *(int*)"line";
-	for(auto next = child->getLine(); next.has_value(); next = child->getLine()) {
-		if(!next.has_value() || *((int*)next.value().c_str()) == predicate)
+	for(auto next = child->getLine(); next; next = child->getLine()) {
+		if(!next || *((int*)(*next).c_str()) == predicate)
 			return next;
 	};
 	return {};
@@ -41,9 +41,9 @@ size_t SelectWithPrefixInt::size() {
 	return result;
 }
 
-std::optional<std::string> BulkSelectWithPrefixInt::getLine() {
-	for(auto next = child->getLine(); next.has_value(); next = child->getLine()) {
-		if(*((int*)next.value().c_str()) == predicate)
+std::string const* BulkSelectWithPrefixInt::getLine() {
+	for(auto next = child->getLine(); next; next = child->getLine()) {
+		if(*((int*)(*next).c_str()) == predicate)
 			return next;
 	};
 	return {};

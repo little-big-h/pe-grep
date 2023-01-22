@@ -25,7 +25,7 @@ target_include_directories(Benchmark PUBLIC ${PETemplate_SOURCE_DIR}/Source)
 
 # * Catch2
 ExternalProject_Add(catch2
-	URL https://github.com/catchorg/Catch2/archive/v2.9.2.tar.gz
+	URL https://github.com/catchorg/Catch2/archive/v2.13.9.tar.gz
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PETemplate_BINARY_DIR}/deps
 )
 

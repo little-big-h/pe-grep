@@ -6,7 +6,7 @@ set(ImplementationFiles Source/Implementation.cpp)
 add_executable(Benchmark Benchmark/Benchmarks.cpp ${ImplementationFiles})
 set_property(TARGET Benchmark PROPERTY CXX_STANDARD 17)
 ExternalProject_Add(googlebenchmark
-	URL "https://github.com/google/benchmark/archive/v1.4.1.tar.gz"
+	URL "https://github.com/google/benchmark/archive/v1.7.1.tar.gz"
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PETemplate_BINARY_DIR}/deps -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON -DBENCHMARK_ENABLE_GTEST_TESTS=OFF -DCMAKE_BUILD_TYPE=Release
   )
 add_dependencies(Benchmark googlebenchmark)
